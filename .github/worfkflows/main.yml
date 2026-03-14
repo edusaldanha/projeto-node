@@ -1,0 +1,47 @@
+name: CI - Build e Push Docker Hub
+
+# O gatilho: roda sempre que houver um push na branch main
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixa o código do GitHub para a máquina do pipeline
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # 2. Instala o Node.js para rodar os testes
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-node-version: '20'
+
+      # 3. Instala as dependências e roda os testes (Opcional, mas recomendado)
+      - name: Instalar dependências e Testar
+        run: |
+          npm install
+          # Se você não tiver testes configurados no package.json, 
+          # pode comentar a linha abaixo com um '#'
+          # npm test 
+
+      # 4. Login no Docker Hub usando as Secrets que você configurou
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 5. Build da imagem e Push para o Docker Hub
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          # MUITO IMPORTANTE: Altere 'seu-usuario' para o seu login do Docker Hub
+          tags: |
+            seu-usuario/node-homelab:latest
+            seu-usuario/node-homelab:${{ github.run_number }}
