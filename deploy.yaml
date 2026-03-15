@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: edusaldanha/node-homelab:latest # SUBSTITUA pelo seu usuário real
+        image: edusaldanha/node-homelab:70f521a
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
