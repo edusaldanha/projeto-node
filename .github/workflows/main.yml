@@ -42,4 +42,4 @@ jobs:
           context: .
           push: true
           tags: |
-            edusaldanha/node-homelab:70f521a
+            edusaldanha/node-homelab:9cb1f94
