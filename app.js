@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
                 <audio id="player">
                     <source src="biglouis.mp3" type="audio/mpeg">
                 </audio>
-                <button class="btn-play" onclick="toggleAudio()">🎵 Ouvir Trilha Sonora</button>
+                <button class="btn-play" onclick="toggleAudio()">🎵 CLIQUE AQUI</button>
             </div>
         </div>
 
