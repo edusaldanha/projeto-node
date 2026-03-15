@@ -41,7 +41,6 @@ jobs:
         with:
           context: .
           push: true
-          # MUITO IMPORTANTE: Altere 'seu-usuario' para o seu login do Docker Hub
           tags: |
-            seu-usuario/node-homelab:latest
-            seu-usuario/node-homelab:${{ github.run_number }}
+            eduasaldanha/node-homelab:latest
+            eduasaldanha/node-homelab:${{ github.run_number }}
