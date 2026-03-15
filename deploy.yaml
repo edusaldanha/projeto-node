@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: node-app
-        image: edusaldanha/node-homelab:9cb1f94
+        image: edusaldanha/node-homelab:76e6c22
         imagePullPolicy: Always
         ports:
         - containerPort: 3000
