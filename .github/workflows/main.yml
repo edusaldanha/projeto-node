@@ -42,5 +42,4 @@ jobs:
           context: .
           push: true
           tags: |
-            edusaldanha/node-homelab:latest
-            edusaldanha/node-homelab:${{ github.run_number }}
+            edusaldanha/node-homelab:70f521a
