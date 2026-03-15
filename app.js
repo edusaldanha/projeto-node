@@ -1,7 +1,11 @@
 const express = require('express');
 const os = require('os');
+const path = require('path');
 const app = express();
 const port = 3000;
+
+// Configura o Express para servir o arquivo mp3 que está na raiz
+app.use(express.static(path.join(__dirname, '.')));
 
 app.get('/', (req, res) => {
     const hostname = os.hostname();
@@ -29,6 +33,22 @@ app.get('/', (req, res) => {
             .info { background: #3d3d3d; padding: 1rem; border-radius: 8px; margin-top: 1.5rem; text-align: left; }
             .info p { margin: 0.5rem 0; font-size: 0.9rem; }
             .badge { background: #00ff88; color: #1a1a1a; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 0.8rem; }
+
+            /* Estilo do Botão de Áudio */
+            .audio-section { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444; }
+            .btn-play { 
+                background: #00ff88; 
+                color: #1a1a1a; 
+                border: none; 
+                padding: 12px 24px; 
+                border-radius: 8px; 
+                cursor: pointer; 
+                font-weight: bold; 
+                text-transform: uppercase;
+                transition: transform 0.2s, background 0.2s;
+            }
+            .btn-play:hover { background: #00cc6e; transform: scale(1.05); }
+            .btn-play:active { transform: scale(0.95); }
         </style>
     </head>
     <body>
@@ -46,18 +66,35 @@ app.get('/', (req, res) => {
                 <p><strong>Plataforma:</strong> ${platform}</p>
                 <p><strong>Uptime:</strong> ${uptime} minutos</p>
             </div>
+
+            <div class="audio-section">
+                <audio id="player">
+                    <source src="biglouis.mp3" type="audio/mpeg">
+                </audio>
+                <button class="btn-play" onclick="toggleAudio()">🎵 Ouvir Trilha Sonora</button>
+            </div>
         </div>
+
+        <script>
+            const audio = document.getElementById('player');
+            function toggleAudio() {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        </script>
     </body>
     </html>
     `;
     res.send(html);
 });
 
-// Rota de Health Check para o Kubernetes
 app.get('/health', (req, res) => {
     res.status(200).send('OK');
 });
 
 app.listen(port, () => {
-    console.log(`App com patrocinador rodando na porta ${port}`);
+    console.log(`App rodando na porta ${port}`);
 });
